@@ -3,7 +3,6 @@
 
 # Import the pygame library and initialise the game engine
 import pygame
-
 pygame.init()
 
 # Define some colours
@@ -52,7 +51,7 @@ while carryOn:
     for event in pygame.event.get(): # Player did something
         if event.type == pygame.QUIT: # Player clicked close button
             carryOn = False
-
+    relvar = 0
     keys = pygame.key.get_pressed()
     if keys[pygame.K_s]:
         clutch = True
@@ -62,8 +61,11 @@ while carryOn:
         accelRate = 2
     if keys[pygame.K_UP]:
         speed += accelRate
-    if clutch == True and keys[pygame.K_d]:
+    if clutch == True and keys[pygame.K_d] and relvar == 0:
         gear += 1
+        relvar == 1
+    if clutch == True and on_key_release(pygame.K_d):
+        relvar == 0
     if clutch == True and keys[pygame.K_a]:
         gear -= 1
     if speed > (30 * gear):
