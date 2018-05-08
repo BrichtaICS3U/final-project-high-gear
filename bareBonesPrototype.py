@@ -3,6 +3,8 @@
 
 # Import the pygame library and initialise the game engine
 import pygame
+import math 
+from car import Car
 pygame.init()
 
 # Define some colours
@@ -12,32 +14,26 @@ WHITE = (255, 255, 255)
 GREEN = (0, 200, 0)
 BRIGHT_GREEN = (0, 255, 0)
 RED = (200, 0, 0)
-bx = 0
-by = -424
 # Open a new window
 # The window is defined as (width, height), measured in pixels
-SCREENWIDTH = 800
-SCREENHEIGHT = 600
-
-background = pygame.image.load("imae.png")
-
+SCREENWIDTH = 900
+SCREENHEIGHT = 850
+x = 0
+y = 0
+xRatio = 0
+yRatio = 0
+all_sprites_list = pygame.sprite.Group()
 size = (SCREENWIDTH, SCREENHEIGHT)
 screen = pygame.display.set_mode(size)
-pygame.display.set_caption("My Button")
-speed = 1
-topSpeed = 150
-accelRate = 2
-slowRate = 1
-gear = 1
-angle = 90
-clutch = False
-# --- Text elements
+background = pygame.image.load("FURYROAD.png")
+pygame.display.set_caption("REDLINE")
 
+# --- Text elements
+PlayerCar = Car([255,0,0],20,40,90, 0, 2,2,1)
+PlayerCar.rect.centerx = SCREENWIDTH/2
+PlayerCar.rect.centery = SCREENHEIGHT/2
+all_sprites_list.add(PlayerCar)
 # Define text for title of game
-fontTitle = pygame.font.Font('freesansbold.ttf', 32)
-textSurfaceTitle = fontTitle.render(str(gear), True, RED) 
-textRectTitle = textSurfaceTitle.get_rect()
-textRectTitle.center = (200, 150)   # place the centre of the text
 
 # This loop will continue until the user exits the game
 carryOn = True
@@ -51,58 +47,41 @@ while carryOn:
     for event in pygame.event.get(): # Player did something
         if event.type == pygame.QUIT: # Player clicked close button
             carryOn = False
-    relvar = 0
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_s]:
-        clutch = True
-        accelRate = 0
-    else:
-        clutch = False
-        accelRate = 2
-    if keys[pygame.K_UP]:
-        speed += accelRate
-    if clutch == True and keys[pygame.K_d] and relvar == 0:
-        gear += 1
-        relvar == 1
-    if clutch == True and on_key_release(pygame.K_d):
-        relvar == 0
-    if clutch == True and keys[pygame.K_a]:
-        gear -= 1
-    if speed > (30 * gear):
-        speed = (30*gear)
-    if speed > 0:
-        speed -= slowRate
-    if speed > topSpeed:
-        speed = topSpeed
-
+            
     # Get mouse location
     mouse = pygame.mouse.get_pos()
     #print(mouse) # Uncomment to see mouse position in shell
-
     # Check if mouse is pressed
     click = pygame.mouse.get_pressed()
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_UP]:
+        PlayerCar.accl()
+    if keys[pygame.K_DOWN]:
+        PlayerCar.slDown()
+    if keys[pygame.K_LEFT]:
+        PlayerCar.rotRight()
+    if keys[pygame.K_RIGHT]:
+        PlayerCar.rotLeft()
+    xRatio = math.cos(math.radians(PlayerCar.angle))
+    yRatio = math.sin(math.radians(PlayerCar.angle))
+    xSpeed = xRatio * PlayerCar.speed
+    ySpeed = yRatio * PlayerCar.speed
+    if PlayerCar.speed >= 20:
+        PlayerCar.speed = 20
+    
+    print(PlayerCar.angle, PlayerCar.speed, xRatio, xSpeed)
+
     #print(click) # Uncomment to see mouse buttons clicked in shell
-    print(speed, clutch, gear)
+    PlayerCar.drag()
     # --- Draw code goes here
-
+    all_sprites_list.update()
     # Clear the screen to white
-
-    bx += 0.5
-    by += speed
-    screen.blit(background,(0,by))
-    screen.blit(background,(0,by))
-    #screen.blit(background, (bx,by))
+    screen.fill([255,255,255])
+    x -= xSpeed
+    y += ySpeed 
+    screen.blit(background, (x, y))
     # Queue shapes to be drawn
-    pygame.draw.rect(screen,[255,0,0],[300,400,30,50],0)
-    # Buttons
-
-    # Green button
-    
-    # Red button
-    
-
-    # Text
-    screen.blit(textSurfaceTitle, textRectTitle)
+    all_sprites_list.draw(screen)
 
     # Update the screen with queued shapes
     pygame.display.flip()
