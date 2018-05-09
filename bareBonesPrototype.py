@@ -25,11 +25,12 @@ yRatio = 0
 all_sprites_list = pygame.sprite.Group()
 size = (SCREENWIDTH, SCREENHEIGHT)
 screen = pygame.display.set_mode(size)
-background = pygame.image.load("FURYROAD.png")
+background = pygame.image.load("england.png")
 pygame.display.set_caption("REDLINE")
 
-# --- Text elements
-PlayerCar = Car([255,0,0],20,40,90, 0, 2,2,1)
+
+ # --- Text elements
+PlayerCar = Car([255,0,0],40,20,0, 0, 2,2,1)
 PlayerCar.rect.centerx = SCREENWIDTH/2
 PlayerCar.rect.centery = SCREENHEIGHT/2
 all_sprites_list.add(PlayerCar)
@@ -60,6 +61,7 @@ while carryOn:
         PlayerCar.slDown()
     if keys[pygame.K_LEFT]:
         PlayerCar.rotRight()
+        screen.blit(PlayerCar.image, (SCREENWIDTH/2,SCREENHEIGHT/2))
     if keys[pygame.K_RIGHT]:
         PlayerCar.rotLeft()
     xRatio = math.cos(math.radians(PlayerCar.angle))

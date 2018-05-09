@@ -1,6 +1,6 @@
 import pygame
 WHITE = (255,255,255)
-
+RED = (255,0,0)
 class Car(pygame.sprite.Sprite):
     
     def __init__(self, color, width, height, angle, speed, acclRate, breakRate, dragRate):
@@ -12,12 +12,14 @@ class Car(pygame.sprite.Sprite):
         self.height = height
         self.color = color
         self.angle = angle
+        pygame.draw.rect(self.image, RED, [0,0,50,50])
         self.speed = speed
         self.dragRate = dragRate
         self.breakRate = breakRate
         self.acclRate = acclRate
         #pygame.draw.rect(self.image, color, [0,0,width,height])
         self.image = pygame.image.load("car.png").convert_alpha()
+        self.original = self.image
         self.rect = self.image.get_rect()
 
 
@@ -35,7 +37,17 @@ class Car(pygame.sprite.Sprite):
             self.speed += self.breakRate
     def rotRight(self):
         self.angle += 3
+        if self.speed == 0:
+            self.speed = 3
+        while self.angle < 0:
+            self.angle += 360
+        self.image = pygame.transform.rotate(self.original, self.angle)
     def rotLeft(self):
         self.angle -= 3
+        if self.speed == 0:
+            self.speed = 3
+        while self.angle > 359:
+            self.angle -= 360
+        self.image = pygame.transform.rotate(self.original, self.angle)
         
    
