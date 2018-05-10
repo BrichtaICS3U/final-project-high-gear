@@ -1,5 +1,5 @@
 from Game import game                     #This is the main game code.
-
+from mainMenu import mainMenu
                                           #The entire purpose of this file will be to organize
                                           #all the menus screens, saving each one of them as a
                                           #function and calling them when needed instead of having
@@ -9,5 +9,5 @@ from Game import game                     #This is the main game code.
 
 
 
-
+mainMenu()
 game()
