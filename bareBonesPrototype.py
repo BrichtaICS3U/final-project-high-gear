@@ -27,7 +27,7 @@ clutched = False
 all_sprites_list = pygame.sprite.Group()
 size = (SCREENWIDTH, SCREENHEIGHT)
 screen = pygame.display.set_mode(size)
-background = pygame.image.load("coolio.png")
+background = pygame.image.load("thebest!.png")
 pygame.display.set_caption("REDLINE")
 fontTitle = pygame.font.Font('freesansbold.ttf', 32)
 textSurfaceTitle = fontTitle.render("wowzers", True, RED) 
@@ -35,7 +35,7 @@ textRectTitle = textSurfaceTitle.get_rect()
 textRectTitle.center = (200, 150)
 
  # --- Text elements
-PlayerCar = Car([255,0,0],40,20,0, 0, 2,2,1,1, 10)
+PlayerCar = Car([255,0,0],20,40,90, 0, 0.5,2,1,1, 10)
 PlayerCar.rect.centerx = SCREENWIDTH/2
 PlayerCar.rect.centery = SCREENHEIGHT/2
 all_sprites_list.add(PlayerCar)
