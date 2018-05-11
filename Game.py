@@ -29,7 +29,7 @@ def game():
     all_sprites_list = pygame.sprite.Group()
     size = (SCREENWIDTH, SCREENHEIGHT)
     screen = pygame.display.set_mode(size)
-    background = pygame.image.load("thebest!.png")
+    background = pygame.image.load("maps/thebest!.png")
     pygame.display.set_caption("REDLINE")
     fontTitle = pygame.font.Font('freesansbold.ttf', 32)
     textSurfaceTitle = fontTitle.render("wowzers", True, RED) 
