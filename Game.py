@@ -23,13 +23,14 @@ def game():
     x = 0
     y = 0
     ook = 0
+    dg = 0 
     xRatio = 0
     yRatio = 0
     clutched = False
     all_sprites_list = pygame.sprite.Group()
     size = (SCREENWIDTH, SCREENHEIGHT)
     screen = pygame.display.set_mode(size)
-    background = pygame.image.load("maps/thebest!.png")
+    background = pygame.image.load("maps/FURYROAD.png")
     pygame.display.set_caption("REDLINE")
     fontTitle = pygame.font.Font('freesansbold.ttf', 32)
     textSurfaceTitle = fontTitle.render("wowzers", True, RED) 
@@ -54,10 +55,13 @@ def game():
         for event in pygame.event.get(): # Player did something
             if event.type == pygame.QUIT: # Player clicked close button
                 carryOn = False
+            if event.type == pygame.KEYUP and event.key == [pygame.K_d]:
+                gear += 1
+                
                 
         # Get mouse location
         mouse = pygame.mouse.get_pos()
-        REDLINE = PlayerCar.gear * 30
+        REDLINE = PlayerCar.gear * 10
         #print(mouse) # Uncomment to see mouse position in shell
         # Check if mouse is pressed
         click = pygame.mouse.get_pressed()
@@ -89,14 +93,19 @@ def game():
             PlayerCar.acclRate = 0
         else:
             PlayerCar.acclRate = 2
-        if clutched == True and keys[pygame.K_d]:
+        if clutched == True and keys[pygame.K_d] and dg == 0 and PlayerCar.gear < 6:
             PlayerCar.gear += 1
-        if clutched == True and keys[pygame.K_a]:
+            dg += 1
+        if clutched == True and keys[pygame.K_a] and dg == 0 and PlayerCar.gear > 0:
             PlayerCar.gear -= 1
-        print(PlayerCar.angle, PlayerCar.speed, xRatio, xSpeed, clutched, PlayerCar.gear)
+            dg += 1
+        if dg == 1 and keys[pygame.K_d] == False and keys[pygame.K_a] == False:
+            dg = 0
+        print(PlayerCar.angle, PlayerCar.speed, xRatio, xSpeed, clutched, dg)
 
         #print(click) # Uncomment to see mouse buttons clicked in shell
         PlayerCar.drag()
+        #dg = 0 
         # --- Draw code goes here
         all_sprites_list.update()
         # Clear the screen to white
@@ -108,7 +117,7 @@ def game():
         all_sprites_list.draw(screen)
         pygame.draw.rect(screen,[0,0,0],[700,750,100,50])
         pygame.draw.rect(screen,[0,100,255],[0,30,15,ook])
-        label1 = fontTitle.render(str(PlayerCar.speed), 1, (255,255,0))
+        label1 = fontTitle.render(str(PlayerCar.speed * 3), 1, (255,255,0))
         label2 = fontTitle.render(str(PlayerCar.gear), 1, (255,255,0))
         screen.blit(label1, (725, 750))
         screen.blit(label2, (700, 750))
@@ -120,6 +129,3 @@ def game():
 
     # Once the main program loop is exited, stop the game engine
     pygame.quit()
-
-
-
