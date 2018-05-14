@@ -16,6 +16,7 @@ def game():
     GREEN = (0, 200, 0)
     BRIGHT_GREEN = (0, 255, 0)
     RED = (200, 0, 0)
+    col = (0,0,0)
     # Open a new window
     # The window is defined as (width, height), measured in pixels
     SCREENWIDTH = 900
@@ -72,7 +73,7 @@ def game():
             PlayerCar.slDown()
         if keys[pygame.K_LEFT]:
             PlayerCar.rotRight()
-            screen.blit(PlayerCar.image, (SCREENWIDTH/2,SCREENHEIGHT/2))
+            #screen.blit(PlayerCar.image, (SCREENWIDTH/2,SCREENHEIGHT/2))
         if keys[pygame.K_RIGHT]:
             PlayerCar.rotLeft()
         if keys[pygame.K_s]:
@@ -101,7 +102,8 @@ def game():
             dg += 1
         if dg == 1 and keys[pygame.K_d] == False and keys[pygame.K_a] == False:
             dg = 0
-        print(PlayerCar.angle, PlayerCar.speed, xRatio, xSpeed, clutched, dg)
+        col = screen.get_at((450,425))
+        print(PlayerCar.angle, PlayerCar.speed, xRatio, xSpeed, clutched, dg,math.radians((20*xRatio)))
 
         #print(click) # Uncomment to see mouse buttons clicked in shell
         PlayerCar.drag()
@@ -117,6 +119,8 @@ def game():
         all_sprites_list.draw(screen)
         pygame.draw.rect(screen,[0,0,0],[700,750,100,50])
         pygame.draw.rect(screen,[0,100,255],[0,30,15,ook])
+        pygame.draw.ellipse(screen, [0,0,0], [450+21,425+21,20,20])
+        #pygame.draw.ellipse(screen, [0,0,0], [math.radians(450*xRatio),math.radians(425*yRatio),20,20])
         label1 = fontTitle.render(str(PlayerCar.speed * 3), 1, (255,255,0))
         label2 = fontTitle.render(str(PlayerCar.gear), 1, (255,255,0))
         screen.blit(label1, (725, 750))
