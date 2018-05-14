@@ -14,6 +14,8 @@ def mainMenu():
        pygame.display.set_caption("menu1")
        carryOn = True
        myfont = pygame.font.SysFont("monospace", 15)
+       background_image = pygame.image.load("tryit.png")
+       titleText = pygame.image.load("titleText.png")
        def button(word,x,y,w,h,ic,ac,action=None):
            mouse = pygame.mouse.get_pos()
            click = pygame.mouse.get_pressed()
@@ -31,9 +33,8 @@ def mainMenu():
        #[----------------Logic----------------]#
               for event in pygame.event.get():
                      if event.type == pygame.QUIT:
-                            carryOn = False
+                            quit()
 
-              
               keys = pygame.key.get_pressed()
               if keys[pygame.K_t]:
                   carryOn = False
@@ -48,7 +49,8 @@ def mainMenu():
 
        #[----------------Shapes----------------]#
               screen.fill([255,255,255])
-              #screen.blit(label, (100, 100))
+              screen.blit(background_image, [0, 0])
+              screen.blit(titleText, (70, 50))
               button("Press T to start!", 500,20,100,50,[5,95,5],[0,255,0], )
               pygame.display.flip()
               clock.tick(60)
