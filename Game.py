@@ -23,15 +23,15 @@ def game():
     SCREENHEIGHT = 850
     x = 0
     y = 0
-    ook = 0
-    dg = 0 
+    ook = 10
+    dg = 0
     xRatio = 0
     yRatio = 0
     clutched = False
     all_sprites_list = pygame.sprite.Group()
     size = (SCREENWIDTH, SCREENHEIGHT)
     screen = pygame.display.set_mode(size)
-    background = pygame.image.load("maps/FURYROAD.png")
+    background = pygame.image.load("maps/thebest!.png")
     pygame.display.set_caption("REDLINE")
     fontTitle = pygame.font.Font('freesansbold.ttf', 32)
     textSurfaceTitle = fontTitle.render("wowzers", True, RED) 
@@ -39,7 +39,7 @@ def game():
     textRectTitle.center = (200, 150)
 
      # --- Text elements
-    PlayerCar = Car([255,0,0],20,40,90, 0, 0.5,2,1,1, 10)
+    PlayerCar = Car([255,0,0],20,40,90, 2, 0.5,2,1,1, 10)
     PlayerCar.rect.centerx = SCREENWIDTH/2
     PlayerCar.rect.centery = SCREENHEIGHT/2
     all_sprites_list.add(PlayerCar)
@@ -59,10 +59,11 @@ def game():
             if event.type == pygame.KEYUP and event.key == [pygame.K_d]:
                 gear += 1
                 
-                
+        col = screen.get_at((int((PlayerCar.rect.centerx+30)+math.radians(900*xRatio)),int((PlayerCar.rect.centery+30)-math.radians(1000*yRatio))))
         # Get mouse location
         mouse = pygame.mouse.get_pos()
         REDLINE = PlayerCar.gear * 10
+        minSpeed = REDLINE - 15 
         #print(mouse) # Uncomment to see mouse position in shell
         # Check if mouse is pressed
         click = pygame.mouse.get_pressed()
@@ -87,9 +88,9 @@ def game():
         if PlayerCar.speed >= REDLINE:
             ook += 1
             PlayerCar.speed = REDLINE
-        if keys[pygame.K_w]:
+        if keys[pygame.K_w] and ook > 0:
             ook -= 5
-            PlayerCar.speed = 65
+            PlayerCar.speed += 15
         if clutched == True:
             PlayerCar.acclRate = 0
         else:
@@ -102,8 +103,13 @@ def game():
             dg += 1
         if dg == 1 and keys[pygame.K_d] == False and keys[pygame.K_a] == False:
             dg = 0
-        col = screen.get_at((450,425))
-        print(PlayerCar.angle, PlayerCar.speed, xRatio, xSpeed, clutched, dg,math.radians((20*xRatio)))
+        if col == (35, 178, 77, 255):
+            if PlayerCar.speed > 6:
+                PlayerCar.speed -= 3
+        if PlayerCar.speed < minSpeed:
+            PlayerCar.speed -= 1
+        
+        print(PlayerCar.angle, PlayerCar.speed, xRatio, xSpeed, clutched, dg,minSpeed)
 
         #print(click) # Uncomment to see mouse buttons clicked in shell
         PlayerCar.drag()
@@ -119,8 +125,8 @@ def game():
         all_sprites_list.draw(screen)
         pygame.draw.rect(screen,[0,0,0],[700,750,100,50])
         pygame.draw.rect(screen,[0,100,255],[0,30,15,ook])
-        pygame.draw.ellipse(screen, [0,0,0], [450+21,425+21,20,20])
-        #pygame.draw.ellipse(screen, [0,0,0], [math.radians(450*xRatio),math.radians(425*yRatio),20,20])
+        #pygame.draw.ellipse(screen, [0,0,0], [475,450,5,5])
+        #pygame.draw.ellipse(screen, [0,0,0], [(PlayerCar.rect.centerx+30)+math.radians(900*xRatio),(PlayerCar.rect.centery+30)-math.radians(1000*yRatio),5,5])
         label1 = fontTitle.render(str(PlayerCar.speed * 3), 1, (255,255,0))
         label2 = fontTitle.render(str(PlayerCar.gear), 1, (255,255,0))
         screen.blit(label1, (725, 750))
