@@ -51,7 +51,6 @@ class Car(pygame.sprite.Sprite):
         while self.angle > 359:
             self.angle -= 360
         self.image = pygame.transform.rotate(self.original, self.angle)
-
         
         
    
