@@ -4,7 +4,7 @@ def mainMenu():
        
        import pygame
        pygame.init()
-       
+       #ghang
        #[----------------init----------------]#
        clock = pygame.time.Clock()
        SCREENWIDTH =  900
