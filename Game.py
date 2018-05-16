@@ -25,6 +25,7 @@ def game():
     y = 0
     ook = 10
     dg = 0
+    whomst = 0
     xRatio = 0
     yRatio = 0
     clutched = False
@@ -39,7 +40,7 @@ def game():
     textRectTitle.center = (200, 150)
 
      # --- Text elements
-    PlayerCar = Car([255,0,0],20,40,90, 2, 0.5,2,1,1, 10)
+    PlayerCar = Car([255,0,0],20,40,90, 0, 2,2,1,1, 10)
     PlayerCar.rect.centerx = SCREENWIDTH/2
     PlayerCar.rect.centery = SCREENHEIGHT/2
     all_sprites_list.add(PlayerCar)
@@ -108,8 +109,9 @@ def game():
                 PlayerCar.speed -= 3
         if PlayerCar.speed < minSpeed:
             PlayerCar.speed -= 1
-        
-        print(PlayerCar.angle, PlayerCar.speed, xRatio, xSpeed, clutched, dg,minSpeed)
+        #PlayerCar.speed += PlayerCar.acclRate
+        print(PlayerCar.speed)
+        #print(PlayerCar.angle, PlayerCar.speed, PlayerCar.acclRate, clutched, dg,minSpeed)
 
         #print(click) # Uncomment to see mouse buttons clicked in shell
         PlayerCar.drag()
