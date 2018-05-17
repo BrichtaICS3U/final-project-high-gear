@@ -4,7 +4,7 @@ def mainMenu():
        
        import pygame
        pygame.init()
-       
+       #ghang
        #[----------------init----------------]#
        clock = pygame.time.Clock()
        SCREENWIDTH =  900
@@ -107,7 +107,7 @@ def mainMenu():
               #[----------------Logic----------------]#
               for event in pygame.event.get():
                      if event.type == pygame.QUIT:
-                            quit()
+                            carryOn = False
 
 
 

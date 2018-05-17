@@ -63,8 +63,8 @@ def game():
         col = screen.get_at((int((PlayerCar.rect.centerx+30)+math.radians(900*xRatio)),int((PlayerCar.rect.centery+30)-math.radians(1000*yRatio))))
         # Get mouse location
         mouse = pygame.mouse.get_pos()
-        REDLINE = PlayerCar.gear * 10
-        minSpeed = REDLINE - 15 
+        REDLINE = PlayerCar.gear * 5
+        minSpeed = REDLINE - 7 
         #print(mouse) # Uncomment to see mouse position in shell
         # Check if mouse is pressed
         click = pygame.mouse.get_pressed()
