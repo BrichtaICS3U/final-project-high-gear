@@ -16,7 +16,8 @@ def mainMenu():
        background_image = pygame.image.load("tryit.png")
        titleText = pygame.image.load("titleText.png")
        class Button():
-           """This is a class for a generic button.
+           """
+              This is a class for a generic button.
               txt = text on the button
               location = (x,y) coordinates of the button's centre
               action = name of function to run when button is pressed
@@ -63,6 +64,7 @@ def mainMenu():
        def playAdvance():
               """A function that advances to the next level"""
               global level
+              print("vro")
               level += 2
 
        def settingsAdvance():
