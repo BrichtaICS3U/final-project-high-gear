@@ -129,9 +129,9 @@ def game():
             if laps == 1:
                 lap1 = seconds
             elif laps == 2:
-                lap2 = seconds
+                lap2 = seconds - lap1
             elif laps == 3:
-                lap3 = seconds
+                lap3 = seconds - (lap1 + lap2) 
             seconds = 0
             laps += 1
             check1 = False
