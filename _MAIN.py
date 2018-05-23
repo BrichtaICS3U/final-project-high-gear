@@ -6,9 +6,6 @@ from mainMenu import mainMenu
                                           #everything in 1 big file. Makes it easier to keep track
                                           #of things and makes working on different parts of the code
                                           #much easier. My idea btw - Ahmed
-
-
-
 #mainMenu()
 game()
 
