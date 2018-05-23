@@ -138,7 +138,11 @@ def game():
             elif laps == 2:
                 lap2 = seconds - lap1
             elif laps == 3:
+<<<<<<< HEAD
                 lap3 = seconds - (lap2 + lap1)
+=======
+                lap3 = seconds - (lap1 + lap2) 
+>>>>>>> 5fd4c4836877f69b7fa86d094d94ad766de15397
             seconds = 0
             #pygame.time.set_timer(cleared,0)
             laps += 1

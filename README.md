@@ -1,19 +1,7 @@
-For this activity, you will learn about the power of collaboration on GitHub. You will also learn some of the pain associated with this, but that's part of learning too.
+I mastered programming within hours. I wrote my OWN versions of the two most popular programs in the world.
 
-You and your partner will work on a simple menu system. One of you will take the role of the UI designer, the other will take on the role of the UX designer. Here is how that breaks down.
+The first is Hello World. While rudimentary, and lacking in threading capabilities, it boasts an extremely user-friendly and intuitive interface. I wrote it in c++ using gcc compiler, Asus monitor, and human fingers.
 
-UI Designer
-You will be responsible for the "look and feel" of the menu. In other words, you will choose the colours, background, font, and any other visual elements in the menu. You will decide where buttons are placed (the layout) on each level of the menu.
+The second is Good Bye world. While it may not be as widely known as Hello World, it still offers the EXACT same amount of utility that the hello world program offers. I wrote this in Java using some coffee grounds I found at the bottom of my Starbucks cup. I compiled it myself with a straw.
 
-UX Designer
-You will be responsible for the logical flow of the menu system and coding any button functions that might be required. All the buttons should do something or go to another level of the menu (see below).
-
-Menu Levels
-
-Level 1
-Should include a title, a Hello button (that prints "hello" in the shell), a Settings button (that leads to level 2), and a Quit button (that closes the program).
-
-Level 2
-Should include a title ("Settings"), a subtitle ("Sound"), an ON button (prints "sounds on" in the shell), an OFF button (prints "sounds off" in the shell), and a Back button (that returns to level 1).
-
-NOTE: This is a learning activity, and not for grade.
+I too am thinking of expanding on my Hello World program and turning it into a multi-greeting, synchronized planetary operating system based off the not widely known Iinux kernel (which I also made by hand using binary found in the background of the Matrix (the first), specifically minutes 22 thru 34 as a base.) I've yet to compile my binary into assembly, and then compile the assembly into c++ so that I can finally recompile into an exe, but when I do... I'll be rich! I'm going to name the OS Look Out World, or LOW for short. So look out world, there will be a new LOW coming from me soon!!
