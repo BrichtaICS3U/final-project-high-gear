@@ -9,5 +9,6 @@ from mainMenu import mainMenu
 
 
 
-mainMenu()
+#mainMenu()
 game()
+

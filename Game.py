@@ -34,6 +34,7 @@ def game():
     check1 = False
     check2 = False
     check3 = False
+    #cleared = USEREVENT + 1
     lap1 = 0
     lap2 = 0
     lap3 = 0
@@ -106,6 +107,12 @@ def game():
             PlayerCar.acclRate = 0
         else:
             PlayerCar.acclRate = 2
+        if PlayerCar.gear == 0:
+            PlayerCar.acclRate = -1
+            #REDLINE = -5
+        else:
+            PlayerCar.acclRate = 2
+            #REDLINE = PlayerCar.gear * 5
         if clutched == True and keys[pygame.K_d] and dg == 0 and PlayerCar.gear < 6:
             PlayerCar.gear += 1
             dg += 1
@@ -129,10 +136,11 @@ def game():
             if laps == 1:
                 lap1 = seconds
             elif laps == 2:
-                lap2 = seconds
+                lap2 = seconds - lap1
             elif laps == 3:
-                lap3 = seconds
+                lap3 = seconds - (lap2 + lap1)
             seconds = 0
+            #pygame.time.set_timer(cleared,0)
             laps += 1
             check1 = False
             check2 = False
@@ -140,7 +148,7 @@ def game():
         if PlayerCar.speed < minSpeed:
             PlayerCar.speed -= 1
         #PlayerCar.speed += PlayerCar.acclRate
-        print(lap1, check1, check2, check3)
+        print(int(seconds), check1, check2, check3)
         #print(PlayerCar.angle, PlayerCar.speed, PlayerCar.acclRate, clutched, dg,minSpeed)
 
         #print(click) # Uncomment to see mouse buttons clicked in shell
@@ -155,19 +163,24 @@ def game():
         screen.blit(background, (x, y))
         # Queue shapes to be drawn
         all_sprites_list.draw(screen)
-        pygame.draw.rect(screen,[0,0,0],[700,750,100,50])
+        if check1 == True:
+            pygame.draw.rect(screen,[255, 128, 40, 255],[0,0,30,30])
+        if check2 == True:
+            pygame.draw.rect(screen,[164, 74, 165, 255],[30,0,30,30])
+        if check3 == True:
+            pygame.draw.rect(screen,[1, 163, 233, 255],[60,0,30,30])
         pygame.draw.rect(screen,[0,100,255],[0,30,15,ook])
         #pygame.draw.ellipse(screen, [0,0,0], [475,450,5,5])
         #pygame.draw.ellipse(screen, [0,0,0], [(PlayerCar.rect.centerx+30)+math.radians(900*xRatio),(PlayerCar.rect.centery+30)-math.radians(1000*yRatio),5,5])
-        label1 = fontTitle.render(str(PlayerCar.speed * 3), 1, (255,255,0))
-        label2 = fontTitle.render(str(PlayerCar.gear), 1, (255,255,0))
-        label3 = fontTitle.render(str(laps), 1, (255,255,0))
-        label4 = fontTitle.render(str(lap1), 1, (255,255,0))
-        label5 = fontTitle.render(str(lap2), 1, (255,255,0))
-        label6 = fontTitle.render(str(lap3), 1, (255,255,0))
-        screen.blit(label1, (725, 750))
-        screen.blit(label2, (700, 750))
-        screen.blit(label3, (675, 750))
+        label1 = fontTitle.render("Speed: " + str(PlayerCar.speed * 3), 1, (255,255,0))
+        label2 = fontTitle.render("Gear: " + str(PlayerCar.gear), 1, (255,255,0))
+        label3 = fontTitle.render("Lap: " + str(laps), 1, (255,255,0))
+        label4 = fontTitle.render("Lap 1: " + str(int(lap1)) + "s", 1, (255,255,0))
+        label5 = fontTitle.render("Lap 2: " + str(int(lap2)) + "s", 1, (255,255,0))
+        label6 = fontTitle.render("Lap 3: " + str(int(lap3)) + "s", 1, (255,255,0))
+        screen.blit(label1, (725, 700))
+        screen.blit(label2, (725, 725))
+        screen.blit(label3, (725, 750))
         screen.blit(label4, (25, 700))
         screen.blit(label5, (25, 725))
         screen.blit(label6, (25, 750))
