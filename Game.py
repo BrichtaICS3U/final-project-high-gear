@@ -5,7 +5,8 @@
 def game(): 
         
     import pygame
-    import math 
+    import math
+    import time
     from car import Car
     pygame.init()
 
@@ -20,15 +21,23 @@ def game():
     # Open a new window
     # The window is defined as (width, height), measured in pixels
     SCREENWIDTH = 900
-    SCREENHEIGHT = 850
+    SCREENHEIGHT = 800
     x = 0
     y = 0
-    ook = 10
+    ook = 500
     dg = 0
     whomst = 0
     xRatio = 0
     yRatio = 0
     clutched = False
+    laps = 1
+    check1 = False
+    check2 = False
+    check3 = False
+    lap1 = 0
+    lap2 = 0
+    lap3 = 0
+    seconds = 0
     all_sprites_list = pygame.sprite.Group()
     size = (SCREENWIDTH, SCREENHEIGHT)
     screen = pygame.display.set_mode(size)
@@ -51,7 +60,7 @@ def game():
 
     # The clock will be used to control how fast the screen updates
     clock = pygame.time.Clock()
-
+    start_ticks=pygame.time.get_ticks()
     while carryOn:
         # --- Main event loop ---
         for event in pygame.event.get(): # Player did something
@@ -63,8 +72,8 @@ def game():
         col = screen.get_at((int((PlayerCar.rect.centerx+30)+math.radians(900*xRatio)),int((PlayerCar.rect.centery+30)-math.radians(1000*yRatio))))
         # Get mouse location
         mouse = pygame.mouse.get_pos()
-        REDLINE = PlayerCar.gear * 10
-        minSpeed = REDLINE - 15 
+        REDLINE = PlayerCar.gear * 5
+        minSpeed = REDLINE - 10 
         #print(mouse) # Uncomment to see mouse position in shell
         # Check if mouse is pressed
         click = pygame.mouse.get_pressed()
@@ -86,11 +95,12 @@ def game():
         yRatio = math.sin(math.radians(PlayerCar.angle))
         xSpeed = xRatio * PlayerCar.speed
         ySpeed = yRatio * PlayerCar.speed
+        seconds=(pygame.time.get_ticks()-start_ticks)/1000#
         if PlayerCar.speed >= REDLINE:
             ook += 1
             PlayerCar.speed = REDLINE
         if keys[pygame.K_w] and ook > 0:
-            ook -= 5
+            ook -= 0
             PlayerCar.speed += 15
         if clutched == True:
             PlayerCar.acclRate = 0
@@ -107,15 +117,35 @@ def game():
         if col == (35, 178, 77, 255):
             if PlayerCar.speed > 6:
                 PlayerCar.speed -= 3
+        #if col == (238, 29, 37, 255):
+            #laps += 1
+        if col == (255, 128, 40, 255):
+            check1 = True
+        if col == (164, 74, 165, 255):
+            check2 = True
+        if col == (1, 163, 233, 255):
+            check3 = True
+        if col == (238, 29, 37, 255) and check1 == True and check2 == True and check3 == True:
+            if laps == 1:
+                lap1 = seconds
+            elif laps == 2:
+                lap2 = seconds - lap1
+            elif laps == 3:
+                lap3 = seconds - (lap1 + lap2) 
+            seconds = 0
+            laps += 1
+            check1 = False
+            check2 = False
+            check3 = False
         if PlayerCar.speed < minSpeed:
             PlayerCar.speed -= 1
         #PlayerCar.speed += PlayerCar.acclRate
-        print(PlayerCar.speed)
+        print(lap1, check1, check2, check3)
         #print(PlayerCar.angle, PlayerCar.speed, PlayerCar.acclRate, clutched, dg,minSpeed)
 
         #print(click) # Uncomment to see mouse buttons clicked in shell
         PlayerCar.drag()
-        #dg = 0 
+        #dg = 0     
         # --- Draw code goes here
         all_sprites_list.update()
         # Clear the screen to white
@@ -131,8 +161,16 @@ def game():
         #pygame.draw.ellipse(screen, [0,0,0], [(PlayerCar.rect.centerx+30)+math.radians(900*xRatio),(PlayerCar.rect.centery+30)-math.radians(1000*yRatio),5,5])
         label1 = fontTitle.render(str(PlayerCar.speed * 3), 1, (255,255,0))
         label2 = fontTitle.render(str(PlayerCar.gear), 1, (255,255,0))
+        label3 = fontTitle.render(str(laps), 1, (255,255,0))
+        label4 = fontTitle.render(str(lap1), 1, (255,255,0))
+        label5 = fontTitle.render(str(lap2), 1, (255,255,0))
+        label6 = fontTitle.render(str(lap3), 1, (255,255,0))
         screen.blit(label1, (725, 750))
         screen.blit(label2, (700, 750))
+        screen.blit(label3, (675, 750))
+        screen.blit(label4, (25, 700))
+        screen.blit(label5, (25, 725))
+        screen.blit(label6, (25, 750))
         # Update the screen with queued shapes
         pygame.display.flip()
 

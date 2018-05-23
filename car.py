@@ -40,7 +40,7 @@ class Car(pygame.sprite.Sprite):
     def rotRight(self):
         self.angle += self.turnRate
         if self.speed == 0:
-            self.speed = self.turnRate
+            self.speed += self.turnRate
         while self.angle < 0:
             self.angle += 360
         self.image = pygame.transform.rotate(self.original, self.angle)

@@ -5,7 +5,7 @@ from mainMenu import mainMenu
                                           #function and calling them when needed instead of having
                                           #everything in 1 big file. Makes it easier to keep track
                                           #of things and makes working on different parts of the code
-                                          #much easier. My idea btw -Faraz
+                                          #much easier. My idea btw - Ahmed
 
 
 
