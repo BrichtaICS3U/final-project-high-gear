@@ -50,7 +50,7 @@ def game():
     textRectTitle.center = (200, 150)
 
      # --- Text elements
-    PlayerCar = Car([255,0,0],20,40,90, 0, 2,2,1,1, 10)
+    PlayerCar = Car([255,0,0],20,40,90, 0, 2,2,1,1, 7)
     PlayerCar.rect.centerx = SCREENWIDTH/2
     PlayerCar.rect.centery = SCREENHEIGHT/2
     all_sprites_list.add(PlayerCar)
@@ -101,7 +101,7 @@ def game():
             ook += 1
             PlayerCar.speed = REDLINE
         if keys[pygame.K_w] and ook > 0:
-            ook -= 0
+            ook -= 5
             PlayerCar.speed += 15
         if clutched == True:
             PlayerCar.acclRate = 0
@@ -138,11 +138,8 @@ def game():
             elif laps == 2:
                 lap2 = seconds - lap1
             elif laps == 3:
-<<<<<<< HEAD
                 lap3 = seconds - (lap2 + lap1)
-=======
                 lap3 = seconds - (lap1 + lap2) 
->>>>>>> 5fd4c4836877f69b7fa86d094d94ad766de15397
             seconds = 0
             #pygame.time.set_timer(cleared,0)
             laps += 1
