@@ -30,7 +30,8 @@ def game():
     xRatio = 0
     yRatio = 0
     clutched = False
-    laps = 1
+    laps = 0
+    done = False
     check1 = False
     check2 = False
     check3 = False
@@ -96,7 +97,8 @@ def game():
         yRatio = math.sin(math.radians(PlayerCar.angle))
         xSpeed = xRatio * PlayerCar.speed
         ySpeed = yRatio * PlayerCar.speed
-        seconds=(pygame.time.get_ticks()-start_ticks)/1000#
+        if laps > 0:
+            seconds=(pygame.time.get_ticks()-start_ticks)/1000#
         if PlayerCar.speed >= REDLINE:
             ook += 1
             PlayerCar.speed = REDLINE
@@ -133,7 +135,7 @@ def game():
         if col == (1, 163, 233, 255):
             check3 = True
         if col == (238, 29, 37, 255) and check1 == True and check2 == True and check3 == True:
-            if laps == 1:
+            if int(laps) == 1:
                 lap1 = seconds
             elif laps == 2:
                 lap2 = seconds - lap1
@@ -146,8 +148,13 @@ def game():
             check1 = False
             check2 = False
             check3 = False
+        elif laps == 0 and col == (238, 29, 37, 255):
+            laps += 1
         if PlayerCar.speed < minSpeed:
             PlayerCar.speed -= 1
+        if laps >= 4:
+            laps = 3
+            done = True
         #PlayerCar.speed += PlayerCar.acclRate
         print(int(seconds), check1, check2, check3)
         #print(PlayerCar.angle, PlayerCar.speed, PlayerCar.acclRate, clutched, dg,minSpeed)
@@ -179,6 +186,9 @@ def game():
         label4 = fontTitle.render("Lap 1: " + str(int(lap1)) + "s", 1, (255,255,0))
         label5 = fontTitle.render("Lap 2: " + str(int(lap2)) + "s", 1, (255,255,0))
         label6 = fontTitle.render("Lap 3: " + str(int(lap3)) + "s", 1, (255,255,0))
+        athing = fontTitle.render("Track Finished!", 1, (255,255,0))
+        if done == True:
+            screen.blit(athing, (400,450))
         screen.blit(label1, (725, 700))
         screen.blit(label2, (725, 725))
         screen.blit(label3, (725, 750))
