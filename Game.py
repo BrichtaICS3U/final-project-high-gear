@@ -36,6 +36,7 @@ def game():
     check2 = False
     check3 = False
     #cleared = USEREVENT + 1
+    lap0 = 0 
     lap1 = 0
     lap2 = 0
     lap3 = 0
@@ -97,8 +98,7 @@ def game():
         yRatio = math.sin(math.radians(PlayerCar.angle))
         xSpeed = xRatio * PlayerCar.speed
         ySpeed = yRatio * PlayerCar.speed
-        if laps > 0:
-            seconds=(pygame.time.get_ticks()-start_ticks)/1000#
+        seconds=(pygame.time.get_ticks()-start_ticks)/1000#
         if PlayerCar.speed >= REDLINE:
             ook += 1
             PlayerCar.speed = REDLINE
@@ -135,13 +135,12 @@ def game():
         if col == (1, 163, 233, 255):
             check3 = True
         if col == (238, 29, 37, 255) and check1 == True and check2 == True and check3 == True:
-            if int(laps) == 1:
-                lap1 = seconds
+            if laps == 1:
+                lap1 = seconds - lap0
             elif laps == 2:
-                lap2 = seconds - lap1
+                lap2 = seconds - (lap1+lap0)
             elif laps == 3:
-                lap3 = seconds - (lap2 + lap1)
-                lap3 = seconds - (lap1 + lap2) 
+                lap3 = seconds - (lap2+lap1+lap0)
             seconds = 0
             #pygame.time.set_timer(cleared,0)
             laps += 1
@@ -150,6 +149,7 @@ def game():
             check3 = False
         elif laps == 0 and col == (238, 29, 37, 255):
             laps += 1
+            lap0 = seconds
         if PlayerCar.speed < minSpeed:
             PlayerCar.speed -= 1
         if laps >= 4:
