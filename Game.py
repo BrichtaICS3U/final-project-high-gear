@@ -202,4 +202,4 @@ def game():
         clock.tick(60)
 
     # Once the main program loop is exited, stop the game engine
-    pygame.quit()
+

@@ -2,7 +2,8 @@
 # Adapted from http://www.dreamincode.net/forums/topic/401541-buttons-and-sliders-in-pygame/
 
 import pygame, sys
-from Game import game
+from Game import *
+#from Game import lap1
 pygame.init()
 
 # Define some colours
@@ -17,6 +18,7 @@ SCREENHEIGHT = 800
 background = pygame.image.load("back.png")
 wasd = pygame.image.load("wasd.png")
 arr  = pygame.image.load("arr.png")
+tips = pygame.image.load("tips.png")
 size = (SCREENWIDTH, SCREENHEIGHT)
 screen = pygame.display.set_mode(size)
 fontTitle = pygame.font.Font('freesansbold.ttf', 32)
@@ -104,6 +106,10 @@ def mousebuttondown(level):
         for button in level3_buttons:
             if button.rect.collidepoint(pos):
                 button.call_back()
+    elif level == 4:
+        for button in level4_buttons:
+            if button.rect.collidepoint(pos):
+                button.call_back()
 
 level = 1
 carryOn = True
@@ -111,13 +117,14 @@ clock = pygame.time.Clock()
 
 #create button objects and store in buttons list
 button_01 = Button("Play!", (SCREENWIDTH/2, SCREENHEIGHT/3), my_next_function,size = (140,30))
-button_02 = Button("Previous", (SCREENWIDTH/2, 700), my_previous_function)
+button_02 = Button("Previous", (150, 700), my_previous_function)
 button_03 = Button("Quit", (SCREENWIDTH/2, SCREENHEIGHT*2/3), my_quit_function, bg=(50, 200, 20))
 button_04 = Button("Instructions", (SCREENWIDTH/2, SCREENHEIGHT/2), howScreen,size = (140,30))
 #arrange button groups depending on level
 level1_buttons = [button_04, button_03, button_01]
 level2_buttons = [button_02, button_03]
 level3_buttons = [button_02]
+level4_buttons = [button_03]
 
 #---------Main Program Loop----------
 while carryOn:
@@ -146,9 +153,12 @@ while carryOn:
 
     elif level == 2:
         game()
+        print(game.lap1)
+        level = 4
     elif level == 3:
         screen.blit(background,(0,0))
         screen.blit(wasd,(15,45))
+        screen.blit(tips, (450,400))
         screen.blit(arr,(245,45))
         font = pygame.font.Font(None, 36)
         text = font.render("'How do I work this thing?'", 1, (0,0,0))
@@ -170,6 +180,10 @@ while carryOn:
         screen.blit(oh3,((285),(220)))
         screen.blit(oh4,((285),(240)))   
         for button in level3_buttons:
+            button.draw()
+    elif level == 4:
+        screen.blit(background,(0,0))
+        for button in level4_buttons:
             button.draw()
 
     # Update the screen with queued shapes
