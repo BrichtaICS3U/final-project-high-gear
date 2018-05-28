@@ -2,6 +2,7 @@
 # adapted from http://www.101computing.net/getting-started-with-pygame/
 
 # Import the pygame library and initialise the game engine
+
 def game(): 
         
     import pygame
@@ -9,7 +10,7 @@ def game():
     import time
     from car import Car
     pygame.init()
-
+    
     # Define some colours
     # Colours are defined using RGB values
     BLACK = (0, 0, 0)
@@ -31,16 +32,18 @@ def game():
     yRatio = 0
     clutched = False
     laps = 0
+    global lap1,lap2,lap3
     done = False
     check1 = False
     check2 = False
     check3 = False
     #cleared = USEREVENT + 1
-    lap0 = 0 
+    lap0 = 0
     lap1 = 0
     lap2 = 0
     lap3 = 0
     seconds = 0
+    timequit = 0 
     all_sprites_list = pygame.sprite.Group()
     size = (SCREENWIDTH, SCREENHEIGHT)
     screen = pygame.display.set_mode(size)
@@ -155,6 +158,8 @@ def game():
         if laps >= 4:
             laps = 3
             done = True
+            if timequit >= 5:
+                carryOn = False
         #PlayerCar.speed += PlayerCar.acclRate
         print(int(seconds), check1, check2, check3)
         #print(PlayerCar.angle, PlayerCar.speed, PlayerCar.acclRate, clutched, dg,minSpeed)
@@ -189,6 +194,10 @@ def game():
         athing = fontTitle.render("Track Finished!", 1, (255,255,0))
         if done == True:
             screen.blit(athing, (400,450))
+            print(timequit)
+            timequit = seconds - (lap1+lap2+lap3)
+            if timequit >= 5:
+                carryOn = False
         screen.blit(label1, (725, 700))
         screen.blit(label2, (725, 725))
         screen.blit(label3, (725, 750))
@@ -203,3 +212,6 @@ def game():
 
     # Once the main program loop is exited, stop the game engine
 
+def callLaps():
+    #print(lap1,lap2,lap3)
+    return lap1, lap2, lap3

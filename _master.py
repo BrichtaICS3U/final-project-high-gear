@@ -2,7 +2,7 @@
 # Adapted from http://www.dreamincode.net/forums/topic/401541-buttons-and-sliders-in-pygame/
 
 import pygame, sys
-from Game import *
+from Game import game, callLaps
 #from Game import lap1
 pygame.init()
 
@@ -153,7 +153,11 @@ while carryOn:
 
     elif level == 2:
         game()
-        print(game.lap1)
+        lap1 = 0
+        lap2 = 0
+        lap3 = 0
+        lap1,lap2,lap3 = callLaps()
+        #print(ookook)
         level = 4
     elif level == 3:
         screen.blit(background,(0,0))
@@ -183,6 +187,12 @@ while carryOn:
             button.draw()
     elif level == 4:
         screen.blit(background,(0,0))
+        onelap = font.render(str(lap1), 1, (0,0,0))
+        twolap = font.render(str(lap2), 1, (0,0,0))
+        thrlap = font.render(str(lap3), 1, (0,0,0))
+        screen.blit(onelap,((35),(180)))
+        screen.blit(twolap,((35),(200)))
+        screen.blit(thrlap,((35),(220)))
         for button in level4_buttons:
             button.draw()
 
