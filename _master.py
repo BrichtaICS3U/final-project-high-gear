@@ -12,7 +12,8 @@ GRAY = (127, 127, 127)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
-
+global sMap
+sMap = 1
 SCREENWIDTH = 900
 SCREENHEIGHT = 800
 background = pygame.image.load("back.png")
@@ -73,17 +74,33 @@ def my_shell_function():
 def my_next_function():
     """A function that advances to the next level"""
     global level
-    level += 1
+    level = 5
 
 def howScreen():
     """A function that advances to the next level"""
     global level
     level += 2
 
+def tellMap():
+    global sMap
+    return sMap
+ 
+def map1Start():
+    global level
+    level = 2
+    print("1")
+    sMap = 1
+
+def map2Start():
+    global level
+    level = 2
+    print("2")
+    sMap = 2
+
 def my_previous_function():
     """A function that retreats to the previous level"""
     global level
-    level -= 2
+    level = 1
     print("ya walid")
 
 def my_quit_function():
@@ -110,6 +127,10 @@ def mousebuttondown(level):
         for button in level4_buttons:
             if button.rect.collidepoint(pos):
                 button.call_back()
+    elif level == 5:
+        for button in level5_buttons:
+            if button.rect.collidepoint(pos):
+                button.call_back()
 
 level = 1
 carryOn = True
@@ -120,11 +141,14 @@ button_01 = Button("Play!", (SCREENWIDTH/2, SCREENHEIGHT/3), my_next_function,si
 button_02 = Button("Previous", (150, 700), my_previous_function)
 button_03 = Button("Quit", (SCREENWIDTH/2, SCREENHEIGHT*2/3), my_quit_function, bg=(50, 200, 20))
 button_04 = Button("Instructions", (SCREENWIDTH/2, SCREENHEIGHT/2), howScreen,size = (140,30))
+button_05 = Button("Map 1",(150,450),map1Start)
+button_06 = Button("Map 2",(350,450),map2Start)
 #arrange button groups depending on level
 level1_buttons = [button_04, button_03, button_01]
 level2_buttons = [button_02, button_03]
 level3_buttons = [button_02]
-level4_buttons = [button_03]
+level4_buttons = [button_02,button_03]
+level5_buttons = [button_05,button_06]
 
 #---------Main Program Loop----------
 while carryOn:
@@ -187,13 +211,21 @@ while carryOn:
             button.draw()
     elif level == 4:
         screen.blit(background,(0,0))
-        onelap = font.render(str(lap1), 1, (0,0,0))
-        twolap = font.render(str(lap2), 1, (0,0,0))
-        thrlap = font.render(str(lap3), 1, (0,0,0))
+        onelap = font.render("Lap 1: " + str(int(lap1)), 1, (0,0,0))
+        twolap = font.render("Lap 2: " + str(int(lap2)), 1, (0,0,0))
+        thrlap = font.render("Lap 3: " + str(int(lap3)), 1, (0,0,0))
+        flap = font.render("Total: " + str(int(lap1 + lap2 + lap3)), 1, (0,0,0))
         screen.blit(onelap,((35),(180)))
         screen.blit(twolap,((35),(200)))
         screen.blit(thrlap,((35),(220)))
+        screen.blit(flap,((35),(260)))
         for button in level4_buttons:
+            button.draw()
+    elif level == 5:
+        screen.blit(background,(0,0))
+        tit = font.render("Select Level!", 1, (0,0,0))
+        screen.blit(tit,((400),(180)))
+        for button in level5_buttons:
             button.draw()
 
     # Update the screen with queued shapes

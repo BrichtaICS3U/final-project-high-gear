@@ -3,12 +3,14 @@
 
 # Import the pygame library and initialise the game engine
 
+    
 def game(): 
         
     import pygame
     import math
     import time
     from car import Car
+    from _master import tellMap
     pygame.init()
     
     # Define some colours
@@ -38,6 +40,7 @@ def game():
     check2 = False
     check3 = False
     #cleared = USEREVENT + 1
+    sMap = 1 
     lap0 = 0
     lap1 = 0
     lap2 = 0
@@ -47,7 +50,6 @@ def game():
     all_sprites_list = pygame.sprite.Group()
     size = (SCREENWIDTH, SCREENHEIGHT)
     screen = pygame.display.set_mode(size)
-    background = pygame.image.load("maps/thebest!.png")
     pygame.display.set_caption("REDLINE")
     fontTitle = pygame.font.Font('freesansbold.ttf', 32)
     textSurfaceTitle = fontTitle.render("wowzers", True, RED) 
@@ -63,7 +65,13 @@ def game():
 
     # This loop will continue until the user exits the game
     carryOn = True
-
+    sMap = tellMap()
+    if sMap == 1:
+        print("shakshooki")
+        background = pygame.image.load("maps/thebest!.png")
+    elif sMap == 2:
+        print("ebic")
+        background = pygame.image.load("maps/FURYROAD.png")
     # The clock will be used to control how fast the screen updates
     clock = pygame.time.Clock()
     start_ticks=pygame.time.get_ticks()
@@ -74,7 +82,8 @@ def game():
                 carryOn = False
             if event.type == pygame.KEYUP and event.key == [pygame.K_d]:
                 gear += 1
-                
+
+
         col = screen.get_at((int((PlayerCar.rect.centerx+30)+math.radians(900*xRatio)),int((PlayerCar.rect.centery+30)-math.radians(1000*yRatio))))
         # Get mouse location
         mouse = pygame.mouse.get_pos()
