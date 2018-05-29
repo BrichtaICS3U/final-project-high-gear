@@ -14,6 +14,7 @@ RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 global sMap
 sMap = 1
+foo = False
 SCREENWIDTH = 900
 SCREENHEIGHT = 800
 background = pygame.image.load("back.png")
@@ -23,6 +24,9 @@ tips = pygame.image.load("tips.png")
 size = (SCREENWIDTH, SCREENHEIGHT)
 screen = pygame.display.set_mode(size)
 fontTitle = pygame.font.Font('freesansbold.ttf', 32)
+level = 1
+carryOn = True
+clock = pygame.time.Clock()
 class Button():
     """This is a class for a generic button.
        txt = text on the button
@@ -74,7 +78,7 @@ def my_shell_function():
 def my_next_function():
     """A function that advances to the next level"""
     global level
-    level = 5
+    level = 5 
 
 def howScreen():
     """A function that advances to the next level"""
@@ -87,15 +91,17 @@ def tellMap():
  
 def map1Start():
     global level
-    level = 2
-    print("1")
+    global sMap
     sMap = 1
+    level = 2
+
 
 def map2Start():
     global level
-    level = 2
-    print("2")
+    global sMap
     sMap = 2
+    level = 2
+
 
 def my_previous_function():
     """A function that retreats to the previous level"""
@@ -132,9 +138,7 @@ def mousebuttondown(level):
             if button.rect.collidepoint(pos):
                 button.call_back()
 
-level = 1
-carryOn = True
-clock = pygame.time.Clock()
+
 
 #create button objects and store in buttons list
 button_01 = Button("Play!", (SCREENWIDTH/2, SCREENHEIGHT/3), my_next_function,size = (140,30))
@@ -158,7 +162,7 @@ while carryOn:
             carryOn = False
         elif event.type == pygame.MOUSEBUTTONDOWN: # Player clicked the mouse
             mousebuttondown(level)
-
+    print(foo)
     # --- Game logic goes here
 
     # --- Draw code goes here
@@ -170,12 +174,17 @@ while carryOn:
     if level == 1:
         screen.blit(background,(0,0))
         font = pygame.font.Font(None, 36)
+        if foo == True:
+            print("???")
+            level = 2
         text = font.render("REDLINE", 1, (0,0,0))
         screen.blit(text, ((SCREENWIDTH/2), (35)))
         for button in level1_buttons:
             button.draw()
 
     elif level == 2:
+        if foo == True:
+            foo = False
         game()
         lap1 = 0
         lap2 = 0
@@ -224,6 +233,8 @@ while carryOn:
     elif level == 5:
         screen.blit(background,(0,0))
         tit = font.render("Select Level!", 1, (0,0,0))
+        if foo == False:
+            foo = True
         screen.blit(tit,((400),(180)))
         for button in level5_buttons:
             button.draw()
