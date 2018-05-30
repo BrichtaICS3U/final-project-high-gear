@@ -79,7 +79,8 @@ def game():
         # --- Main event loop ---
         for event in pygame.event.get(): # Player did something
             if event.type == pygame.QUIT: # Player clicked close button
-                carryOn = False
+                #carryOn = False
+                pygame.quit()
             if event.type == pygame.KEYUP and event.key == [pygame.K_d]:
                 gear += 1
 

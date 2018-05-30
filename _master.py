@@ -81,9 +81,9 @@ def my_next_function():
     level = 5 
 
 def howScreen():
-    """A function that advances to the next level"""
+    """Go to the instructions page"""
     global level
-    level += 2
+    level = 3
 
 def tellMap():
     global sMap
@@ -137,6 +137,10 @@ def mousebuttondown(level):
         for button in level5_buttons:
             if button.rect.collidepoint(pos):
                 button.call_back()
+    elif level == 6:
+        for button in level6_buttons:
+            if button.rect.collidepoint(pos):
+                button.call_back()
 
 
 
@@ -147,12 +151,14 @@ button_03 = Button("Quit", (SCREENWIDTH/2, SCREENHEIGHT*2/3), my_quit_function, 
 button_04 = Button("Instructions", (SCREENWIDTH/2, SCREENHEIGHT/2), howScreen,size = (140,30))
 button_05 = Button("Map 1",(150,450),map1Start)
 button_06 = Button("Map 2",(350,450),map2Start)
+#button_07 = Button("Car 1",(350,350),redPick)
 #arrange button groups depending on level
 level1_buttons = [button_04, button_03, button_01]
 level2_buttons = [button_02, button_03]
 level3_buttons = [button_02]
 level4_buttons = [button_02,button_03]
 level5_buttons = [button_05,button_06]
+level6_buttons = [button_03] 
 
 #---------Main Program Loop----------
 while carryOn:
@@ -174,10 +180,10 @@ while carryOn:
     if level == 1:
         screen.blit(background,(0,0))
         font = pygame.font.Font(None, 36)
-        if foo == True:
+        if foo ==  True:
             print("???")
             game()
-            level = 4
+            level = 2
         text = font.render("REDLINE", 1, (0,0,0))
         screen.blit(text, ((SCREENWIDTH/2), (35)))
         for button in level1_buttons:
@@ -238,6 +244,10 @@ while carryOn:
             foo = True
         screen.blit(tit,((400),(180)))
         for button in level5_buttons:
+            button.draw()
+    elif level == 6:
+        screen.blit(background,(0,0))
+        for button in level6_buttons:
             button.draw()
 
     # Update the screen with queued shapes

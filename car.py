@@ -20,7 +20,7 @@ class Car(pygame.sprite.Sprite):
         self.breakRate = breakRate
         self.acclRate = acclRate
         #pygame.draw.rect(self.image, color, [0,0,width,height])
-        self.image = pygame.image.load("car.png").convert_alpha()
+        self.image = pygame.image.load("bcar.png").convert_alpha()
         self.original = self.image
         self.rect = self.image.get_rect()
 
