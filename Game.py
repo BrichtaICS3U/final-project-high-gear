@@ -40,7 +40,8 @@ def game():
     check2 = False
     check3 = False
     #cleared = USEREVENT + 1
-    sMap = 1 
+    sMap = 1
+    sMap = tellMap()
     lap0 = 0
     lap1 = 0
     lap2 = 0
@@ -65,7 +66,6 @@ def game():
 
     # This loop will continue until the user exits the game
     carryOn = True
-    sMap = tellMap()
     if sMap == 1:
         print("shakshooki")
         background = pygame.image.load("maps/thebest!.png")

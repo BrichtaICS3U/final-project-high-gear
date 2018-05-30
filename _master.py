@@ -176,7 +176,8 @@ while carryOn:
         font = pygame.font.Font(None, 36)
         if foo == True:
             print("???")
-            level = 2
+            game()
+            level = 4
         text = font.render("REDLINE", 1, (0,0,0))
         screen.blit(text, ((SCREENWIDTH/2), (35)))
         for button in level1_buttons:
