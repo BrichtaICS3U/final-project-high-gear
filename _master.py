@@ -12,9 +12,8 @@ GRAY = (127, 127, 127)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
-global sMap
+#global sMap
 sMap = 1
-foo = False
 SCREENWIDTH = 900
 SCREENHEIGHT = 800
 background = pygame.image.load("back.png")
@@ -147,7 +146,7 @@ def mousebuttondown(level):
 #create button objects and store in buttons list
 button_01 = Button("Play!", (SCREENWIDTH/2, SCREENHEIGHT/3), my_next_function,size = (140,30))
 button_02 = Button("Previous", (150, 700), my_previous_function)
-button_03 = Button("Quit", (SCREENWIDTH/2, SCREENHEIGHT*2/3), my_quit_function, bg=(50, 200, 20))
+button_03 = Button("Quit", (SCREENWIDTH/2, SCREENHEIGHT*2/3), my_quit_function, bg=(255, 20, 20))
 button_04 = Button("Instructions", (SCREENWIDTH/2, SCREENHEIGHT/2), howScreen,size = (140,30))
 button_05 = Button("Map 1",(150,450),map1Start)
 button_06 = Button("Map 2",(350,450),map2Start)
@@ -168,37 +167,27 @@ while carryOn:
             carryOn = False
         elif event.type == pygame.MOUSEBUTTONDOWN: # Player clicked the mouse
             mousebuttondown(level)
-    print(foo)
     # --- Game logic goes here
 
     # --- Draw code goes here
 
     # Clear the screen to white
     screen.fill(WHITE)
-
     # Draw buttons
     if level == 1:
         screen.blit(background,(0,0))
         font = pygame.font.Font(None, 36)
-        if foo ==  True:
-            print("???")
-            game()
-            level = 2
         text = font.render("REDLINE", 1, (0,0,0))
         screen.blit(text, ((SCREENWIDTH/2), (35)))
         for button in level1_buttons:
             button.draw()
 
     elif level == 2:
-        if foo == True:
-            foo = False
         game()
-        lap1 = 0
-        lap2 = 0
-        lap3 = 0
+        lap1,lap2,lap3 = 0,0,0
         lap1,lap2,lap3 = callLaps()
-        #print(ookook)
         level = 4
+        #print(ookook)
     elif level == 3:
         screen.blit(background,(0,0))
         screen.blit(wasd,(15,45))
@@ -240,8 +229,6 @@ while carryOn:
     elif level == 5:
         screen.blit(background,(0,0))
         tit = font.render("Select Level!", 1, (0,0,0))
-        if foo == False:
-            foo = True
         screen.blit(tit,((400),(180)))
         for button in level5_buttons:
             button.draw()

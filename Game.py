@@ -79,8 +79,8 @@ def game():
         # --- Main event loop ---
         for event in pygame.event.get(): # Player did something
             if event.type == pygame.QUIT: # Player clicked close button
-                #carryOn = False
-                pygame.quit()
+                carryOn = False
+                #pygame.quit()
             if event.type == pygame.KEYUP and event.key == [pygame.K_d]:
                 gear += 1
 
@@ -147,6 +147,12 @@ def game():
             check2 = True
         if col == (1, 163, 233, 255):
             check3 = True
+        if laps == 1:
+            lap1 = seconds - lap0
+        elif laps == 2:
+            lap2 = seconds - lap0 - lap1
+        elif laps == 3:
+            lap3 = seconds - lap0 - lap1 - lap2
         if col == (238, 29, 37, 255) and check1 == True and check2 == True and check3 == True:
             if laps == 1:
                 lap1 = seconds - lap0
@@ -168,7 +174,7 @@ def game():
         if laps >= 4:
             laps = 3
             done = True
-            if timequit >= 5:
+            if timequit >= 15:
                 carryOn = False
         #PlayerCar.speed += PlayerCar.acclRate
         print(int(seconds), check1, check2, check3)
