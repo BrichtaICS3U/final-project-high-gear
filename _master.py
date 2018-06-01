@@ -14,8 +14,10 @@ RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 #global sMap
 sMap = 1
+score = 0
 SCREENWIDTH = 900
 SCREENHEIGHT = 800
+time1 = 100
 background = pygame.image.load("back.png")
 wasd = pygame.image.load("wasd.png")
 arr  = pygame.image.load("arr.png")
@@ -70,9 +72,6 @@ class Button():
         """Runs a function when clicked"""
         self.call_back_()
 
-def my_shell_function():
-    """A generic function that prints something in the shell"""
-    print('Fire the nukes!')
 
 def my_next_function():
     """A function that advances to the next level"""
@@ -150,6 +149,7 @@ button_03 = Button("Quit", (SCREENWIDTH/2, SCREENHEIGHT*2/3), my_quit_function, 
 button_04 = Button("Instructions", (SCREENWIDTH/2, SCREENHEIGHT/2), howScreen,size = (140,30))
 button_05 = Button("Map 1",(150,450),map1Start)
 button_06 = Button("Map 2",(350,450),map2Start)
+button_07 = Button("Next map",(350,350),map2Start)
 #button_07 = Button("Car 1",(350,350),redPick)
 #arrange button groups depending on level
 level1_buttons = [button_04, button_03, button_01]
@@ -187,7 +187,6 @@ while carryOn:
         lap1,lap2,lap3 = 0,0,0
         lap1,lap2,lap3 = callLaps()
         level = 4
-        #print(ookook)
     elif level == 3:
         screen.blit(background,(0,0))
         screen.blit(wasd,(15,45))
@@ -220,6 +219,10 @@ while carryOn:
         twolap = font.render("Lap 2: " + str(int(lap2)), 1, (0,0,0))
         thrlap = font.render("Lap 3: " + str(int(lap3)), 1, (0,0,0))
         flap = font.render("Total: " + str(int(lap1 + lap2 + lap3)), 1, (0,0,0))
+        result = font.render("Winrar!",1,(0,0,0))
+        if int(lap1+lap2+lap3) <= time1:
+            screen.blit(result,(450,450))
+            score += 1
         screen.blit(onelap,((35),(180)))
         screen.blit(twolap,((35),(200)))
         screen.blit(thrlap,((35),(220)))
@@ -234,6 +237,7 @@ while carryOn:
             button.draw()
     elif level == 6:
         screen.blit(background,(0,0))
+        level = 4
         for button in level6_buttons:
             button.draw()
 
