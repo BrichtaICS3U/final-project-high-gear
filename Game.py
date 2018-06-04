@@ -33,6 +33,7 @@ def game():
     xRatio = 0
     yRatio = 0
     clutched = False
+    global laps
     laps = 0
     global lap1,lap2,lap3
     done = False
@@ -79,8 +80,8 @@ def game():
         # --- Main event loop ---
         for event in pygame.event.get(): # Player did something
             if event.type == pygame.QUIT: # Player clicked close button
-                #carryOn = False
-                pygame.quit()
+                carryOn = False
+                #pygame.quit()
             if event.type == pygame.KEYUP and event.key == [pygame.K_d]:
                 gear += 1
 
@@ -126,7 +127,10 @@ def game():
             PlayerCar.acclRate = -1
             #REDLINE = -5
         else:
-            PlayerCar.acclRate = 2
+            if clutched == True:
+                PlayerCar.acclRate = 0
+            elif clutched == False:
+                PlayerCar.acclRate = 2
             #REDLINE = PlayerCar.gear * 5
         if clutched == True and keys[pygame.K_d] and dg == 0 and PlayerCar.gear < 6:
             PlayerCar.gear += 1
@@ -171,7 +175,7 @@ def game():
             if timequit >= 5:
                 carryOn = False
         #PlayerCar.speed += PlayerCar.acclRate
-        print(int(seconds), check1, check2, check3)
+        print(clutched, PlayerCar.acclRate)
         #print(PlayerCar.angle, PlayerCar.speed, PlayerCar.acclRate, clutched, dg,minSpeed)
 
         #print(click) # Uncomment to see mouse buttons clicked in shell
@@ -224,4 +228,4 @@ def game():
 
 def callLaps():
     #print(lap1,lap2,lap3)
-    return lap1, lap2, lap3
+    return lap1, lap2, lap3, laps

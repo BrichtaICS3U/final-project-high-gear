@@ -14,7 +14,8 @@ RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 #global sMap
 sMap = 1
-score = 0
+scored = False
+req = 0 
 SCREENWIDTH = 900
 SCREENHEIGHT = 800
 time1 = 100
@@ -76,7 +77,7 @@ class Button():
 def my_next_function():
     """A function that advances to the next level"""
     global level
-    level = 5 
+    level = 2 
 
 def howScreen():
     """Go to the instructions page"""
@@ -86,20 +87,21 @@ def howScreen():
 def tellMap():
     global sMap
     return sMap
- 
+"""
 def map1Start():
     global level
     global sMap
     sMap = 1
     level = 2
 
-
-def map2Start():
+"""
+def nextMap():
     global level
     global sMap
-    sMap = 2
+    if scored == True:
+        sMap += 1
     level = 2
-
+ 
 
 def my_previous_function():
     """A function that retreats to the previous level"""
@@ -147,16 +149,16 @@ button_01 = Button("Play!", (SCREENWIDTH/2, SCREENHEIGHT/3), my_next_function,si
 button_02 = Button("Previous", (150, 700), my_previous_function)
 button_03 = Button("Quit", (SCREENWIDTH/2, SCREENHEIGHT*2/3), my_quit_function, bg=(255, 20, 20))
 button_04 = Button("Instructions", (SCREENWIDTH/2, SCREENHEIGHT/2), howScreen,size = (140,30))
-button_05 = Button("Map 1",(150,450),map1Start)
-button_06 = Button("Map 2",(350,450),map2Start)
-button_07 = Button("Next map",(350,350),map2Start)
+#button_05 = Button("Map 1",(150,450),map1Start)
+#button_06 = Button("Map 2",(350,450),map2Start)
+button_07 = Button("Next map",(350,350),nextMap)
 #button_07 = Button("Car 1",(350,350),redPick)
 #arrange button groups depending on level
 level1_buttons = [button_04, button_03, button_01]
 level2_buttons = [button_02, button_03]
 level3_buttons = [button_02]
-level4_buttons = [button_02,button_03]
-level5_buttons = [button_05,button_06]
+level4_buttons = [button_02,button_03,button_07]
+level5_buttons = [button_02,button_02]
 level6_buttons = [button_03] 
 
 #---------Main Program Loop----------
@@ -184,8 +186,8 @@ while carryOn:
 
     elif level == 2:
         game()
-        lap1,lap2,lap3 = 0,0,0
-        lap1,lap2,lap3 = callLaps()
+        lap1,lap2,lap3,laps = 0,0,0,0
+        lap1,lap2,lap3,laps = callLaps()
         level = 4
     elif level == 3:
         screen.blit(background,(0,0))
@@ -220,9 +222,10 @@ while carryOn:
         thrlap = font.render("Lap 3: " + str(int(lap3)), 1, (0,0,0))
         flap = font.render("Total: " + str(int(lap1 + lap2 + lap3)), 1, (0,0,0))
         result = font.render("Winrar!",1,(0,0,0))
-        if int(lap1+lap2+lap3) <= time1:
+        scored = False
+        if int(lap1+lap2+lap3) <= time1 and laps >= 3:
             screen.blit(result,(450,450))
-            score += 1
+            scored = True
         screen.blit(onelap,((35),(180)))
         screen.blit(twolap,((35),(200)))
         screen.blit(thrlap,((35),(220)))
