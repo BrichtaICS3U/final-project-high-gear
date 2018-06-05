@@ -1,0 +1,6 @@
+Finish line: (237,28,36)
+Orange checkpoint: (255,127,39)
+Purple checkpoint: (163,73,164)
+Blue checkpoint: (0,162,232)
+Grass: (34,177,76)
+Sand: 

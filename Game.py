@@ -69,7 +69,7 @@ def game():
     carryOn = True
     if sMap == 1:
         print("shakshooki")
-        background = pygame.image.load("maps/thebest!.png")
+        background = pygame.image.load("maps/nicemap.png")
     elif sMap == 2:
         print("ebic")
         background = pygame.image.load("maps/FURYROAD.png")
@@ -175,7 +175,7 @@ def game():
             if timequit >= 5:
                 carryOn = False
         #PlayerCar.speed += PlayerCar.acclRate
-        print(clutched, PlayerCar.acclRate)
+        print(col)
         #print(PlayerCar.angle, PlayerCar.speed, PlayerCar.acclRate, clutched, dg,minSpeed)
 
         #print(click) # Uncomment to see mouse buttons clicked in shell
