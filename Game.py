@@ -47,6 +47,9 @@ def game():
     lap1 = 0
     lap2 = 0
     lap3 = 0
+    #pygame.mixer.pre_init(frequency=44100, size=-16, channels=2, buffer=4096)
+    #pygame.mixer.music.load('Explosion.wav')
+    #effect = pygame.mixer.Sound('Explosion.wav')
     seconds = 0
     timequit = 0 
     all_sprites_list = pygame.sprite.Group()
@@ -69,10 +72,13 @@ def game():
     carryOn = True
     if sMap == 1:
         print("shakshooki")
-        background = pygame.image.load("maps/FURYROAD.png")
+        background = pygame.image.load("maps/firstmap.png")
     elif sMap == 2:
         print("ebic")
-        background = pygame.image.load("maps/FURYROAD.png")
+        background = pygame.image.load("maps/secondmap.png")
+    elif sMap == 3:
+        print("ah")
+        background = pygame.image.load("maps/thirdmap.png")
     # The clock will be used to control how fast the screen updates
     clock = pygame.time.Clock()
     start_ticks=pygame.time.get_ticks()
@@ -97,6 +103,7 @@ def game():
         keys = pygame.key.get_pressed()
         if keys[pygame.K_UP]:
             PlayerCar.accl()
+            #effect.play()
         if keys[pygame.K_DOWN]:
             PlayerCar.slDown()
         if keys[pygame.K_LEFT]:
