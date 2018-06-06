@@ -69,7 +69,7 @@ def game():
     carryOn = True
     if sMap == 1:
         print("shakshooki")
-        background = pygame.image.load("maps/nicemap.png")
+        background = pygame.image.load("maps/FURYROAD.png")
     elif sMap == 2:
         print("ebic")
         background = pygame.image.load("maps/FURYROAD.png")
