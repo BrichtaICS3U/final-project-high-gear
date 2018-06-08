@@ -27,7 +27,7 @@ def game():
     SCREENHEIGHT = 800
     x = 0
     y = 0
-    ook = 500
+    ook = 0
     dg = 0
     whomst = 0
     xRatio = 0
@@ -125,6 +125,8 @@ def game():
         if PlayerCar.speed >= REDLINE:
             ook += 1
             PlayerCar.speed = REDLINE
+        if ook >= 700:
+            ook = 700
         if keys[pygame.K_w] and ook > 0:
             ook -= 5
             PlayerCar.speed += 15
