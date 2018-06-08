@@ -62,7 +62,7 @@ def game():
     textRectTitle.center = (200, 150)
 
      # --- Text elements
-    PlayerCar = Car([255,0,0],20,40,90, 0, 2,2,1,1, 7)
+    PlayerCar = Car([255,0,0],20,40,0, 0, 2,2,1,1, 5)
     PlayerCar.rect.centerx = SCREENWIDTH/2
     PlayerCar.rect.centery = SCREENHEIGHT/2
     all_sprites_list.add(PlayerCar)
@@ -75,10 +75,12 @@ def game():
         background = pygame.image.load("maps/firstmap.png")
     elif sMap == 2:
         print("ebic")
-        background = pygame.image.load("maps/secondmap.png")
+        backgrsyound = pygame.image.load("maps/secondmap.png")
     elif sMap == 3:
         print("ah")
         background = pygame.image.load("maps/thirdmap.png")
+    elif sMap == 4:
+        carryOn = False
     # The clock will be used to control how fast the screen updates
     clock = pygame.time.Clock()
     start_ticks=pygame.time.get_ticks()

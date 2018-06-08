@@ -18,11 +18,14 @@ scored = False
 req = 0 
 SCREENWIDTH = 900
 SCREENHEIGHT = 800
-time1 = 100
+time1 = 120
+pygame.display.set_caption("REDLINE")
 background = pygame.image.load("back.png")
 wasd = pygame.image.load("wasd.png")
 arr  = pygame.image.load("arr.png")
 tips = pygame.image.load("tips.png")
+logo = pygame.image.load("logo.png")
+whatdo = pygame.image.load("whatdo.png")
 size = (SCREENWIDTH, SCREENHEIGHT)
 screen = pygame.display.set_mode(size)
 fontTitle = pygame.font.Font('freesansbold.ttf', 32)
@@ -98,8 +101,7 @@ def map1Start():
 def nextMap():
     global level
     global sMap
-    if scored == True:
-        sMap += 1
+    sMap += 1
     level = 2
  
 
@@ -145,21 +147,21 @@ def mousebuttondown(level):
 
 
 #create button objects and store in buttons list
-button_01 = Button("Play!", (SCREENWIDTH/2, SCREENHEIGHT/3), my_next_function,size = (140,30))
-button_02 = Button("Previous", (150, 700), my_previous_function)
+button_01 = Button("Play!", (SCREENWIDTH/2, SCREENHEIGHT/3), my_next_function,size = (140,30),bg=(20,255,20))
+button_02 = Button("Previous", (700, 150), my_previous_function)
 button_03 = Button("Quit", (SCREENWIDTH/2, SCREENHEIGHT*2/3), my_quit_function, bg=(255, 20, 20))
 button_04 = Button("Instructions", (SCREENWIDTH/2, SCREENHEIGHT/2), howScreen,size = (140,30))
 #button_05 = Button("Map 1",(150,450),map1Start)
-#button_06 = Button("Map 2",(350,450),map2Start)
-button_07 = Button("Next map",(350,350),nextMap)
+button_06 = Button("Try again",(450,475),my_next_function,size=(100,30))
+button_07 = Button("Next map",(450,475),nextMap)
 #button_07 = Button("Car 1",(350,350),redPick)
 #arrange button groups depending on level
 level1_buttons = [button_04, button_03, button_01]
 level2_buttons = [button_02, button_03]
 level3_buttons = [button_02]
-level4_buttons = [button_02,button_03,button_07]
+level4_buttons = [button_03,button_07]
 level5_buttons = [button_02,button_02]
-level6_buttons = [button_03] 
+level6_buttons = [button_03,button_06] 
 
 #---------Main Program Loop----------
 while carryOn:
@@ -180,7 +182,7 @@ while carryOn:
         screen.blit(background,(0,0))
         font = pygame.font.Font(None, 36)
         text = font.render("REDLINE", 1, (0,0,0))
-        screen.blit(text, ((SCREENWIDTH/2), (35)))
+        screen.blit(logo,(278,35))
         for button in level1_buttons:
             button.draw()
 
@@ -188,9 +190,16 @@ while carryOn:
         game()
         lap1,lap2,lap3,laps = 0,0,0,0
         lap1,lap2,lap3,laps = callLaps()
-        level = 4
+        if sMap == 3:
+            pygame.quit()
+            sys.exit()
+        if int(lap1+lap2+lap3) <= time1 and laps >= 3:
+            level = 4
+        else:
+            level = 6
     elif level == 3:
         screen.blit(background,(0,0))
+        screen.blit(whatdo,(0,325))
         screen.blit(wasd,(15,45))
         screen.blit(tips, (450,400))
         screen.blit(arr,(245,45))
@@ -217,15 +226,12 @@ while carryOn:
             button.draw()
     elif level == 4:
         screen.blit(background,(0,0))
-        onelap = font.render("Lap 1: " + str(int(lap1)), 1, (0,0,0))
-        twolap = font.render("Lap 2: " + str(int(lap2)), 1, (0,0,0))
-        thrlap = font.render("Lap 3: " + str(int(lap3)), 1, (0,0,0))
+        onelap = font.render("Lap 1: " + str(int(lap1)) + "s", 1, (0,0,0))
+        twolap = font.render("Lap 2: " + str(int(lap2)) + "s", 1, (0,0,0))
+        thrlap = font.render("Lap 3: " + str(int(lap3)) + "s", 1, (0,0,0))
         flap = font.render("Total: " + str(int(lap1 + lap2 + lap3)), 1, (0,0,0))
-        result = font.render("Winrar!",1,(0,0,0))
-        scored = False
-        if int(lap1+lap2+lap3) <= time1 and laps >= 3:
-            screen.blit(result,(450,450))
-            scored = True
+        result = font.render("You finished the track!",3,(0,0,0))
+        screen.blit(result,(400,200))
         screen.blit(onelap,((35),(180)))
         screen.blit(twolap,((35),(200)))
         screen.blit(thrlap,((35),(220)))
@@ -240,7 +246,16 @@ while carryOn:
             button.draw()
     elif level == 6:
         screen.blit(background,(0,0))
-        level = 4
+        result = font.render("You failed to finish track...",3,(0,0,0))
+        onelap = font.render("Lap 1: " + str(int(lap1)) + "s", 1, (0,0,0))
+        twolap = font.render("Lap 2: " + str(int(lap2)) + "s", 1, (0,0,0))
+        thrlap = font.render("Lap 3: " + str(int(lap3)) + "s", 1, (0,0,0))
+        flap = font.render("Total: " + str(int(lap1 + lap2 + lap3)), 1, (0,0,0))
+        screen.blit(onelap,((35),(180)))
+        screen.blit(twolap,((35),(200)))
+        screen.blit(thrlap,((35),(220)))
+        screen.blit(flap,((35),(260)))
+        screen.blit(result,(400,200))
         for button in level6_buttons:
             button.draw()
 
