@@ -190,9 +190,6 @@ while carryOn:
         game()
         lap1,lap2,lap3,laps = 0,0,0,0
         lap1,lap2,lap3,laps = callLaps()
-        if sMap == 3:
-            pygame.quit()
-            sys.exit()
         if int(lap1+lap2+lap3) <= time1 and laps >= 3:
             level = 4
         else:
@@ -246,7 +243,7 @@ while carryOn:
             button.draw()
     elif level == 6:
         screen.blit(background,(0,0))
-        result = font.render("You failed to finish track...",3,(0,0,0))
+        result = font.render("You failed to finish the track...",3,(0,0,0))
         onelap = font.render("Lap 1: " + str(int(lap1)) + "s", 1, (0,0,0))
         twolap = font.render("Lap 2: " + str(int(lap2)) + "s", 1, (0,0,0))
         thrlap = font.render("Lap 3: " + str(int(lap3)) + "s", 1, (0,0,0))
